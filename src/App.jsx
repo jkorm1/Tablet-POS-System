@@ -7,7 +7,6 @@ import { SkeletonCard } from './components/SkeletonCard';
 import SwipeableCard from './components/SwipeableCard.jsx';
 import { cards } from './components/cardsData';
 import Login from './components/Login';
-import SignUp from './components/SignUp';
 import UserProfile from './components/UserProfile';
 import Dashboard from './components/Dashboard';
 import OrderHistory from './components/OrderHistory';
@@ -23,8 +22,8 @@ function App() {
     const [cardStatus, setCardStatus] = useState({});
     const [showingStatus, setShowingStatus] = useState('onProcessOrPending');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [showSignUp, setShowSignUp] = useState(false);
     const [reRender, setReRender] = useState(false); // State to force re-render
+    const [swipeTimestamps, setSwipeTimestamps] = useState([]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -70,6 +69,13 @@ function App() {
         }));
         setSelectedOrder(null); // Deselect the order if it's swiped to completed
         setReRender(prev => !prev); // Trigger re-render
+        setSwipeTimestamps((prevTimestamps) => [...prevTimestamps, { orderId: order.orderId, timestamp: new Date() }]);
+    };
+    
+
+    const calculateSwipesPerHour = () => {
+         const oneHourAgo = new Date(new Date().getTime() - 60 * 60 * 1000);
+         return swipeTimestamps.filter(timestamp => timestamp >= oneHourAgo).length;
     };
 
     const closeOrderDetail = () => {
@@ -95,14 +101,6 @@ function App() {
 
     const handleLogin = (credentials) => {
         setIsLoggedIn(true);
-    };
-
-    const handleSignUp = (userData) => {
-        setIsLoggedIn(true);
-    };
-
-    const toggleSignUp = () => {
-        setShowSignUp(prev => !prev);
     };
 
     const handleLogout = () => {
@@ -150,16 +148,15 @@ function App() {
                                     </div>
                                     <OrderDetailSheet
                                         order={selectedOrder}
-                                        expandedCards={expandedCards}
+                                        totalItems={selectedOrder ? selectedOrder.items.length : 0}
                                         close={closeOrderDetail}
-                                        totalItems={totalItems}
                                         totalAmount={totalAmount}
                                         tax={tax}
                                         totalToPay={totalToPay}
                                     />
                                 </div>
                             } />
-                            <Route path="/profile" element={<UserProfile onLogout={handleLogout} />} />
+                            <Route path="/profile" element={<UserProfile onLogout={handleLogout} calculateSwipesPerHour={calculateSwipesPerHour}/>} />
                             <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/order-history" element={<OrderHistory cardStatus={cardStatus} />} />
                             <Route path="/notifications" element={<Notifications />} />
@@ -169,10 +166,8 @@ function App() {
                         </Routes>
                     </div>
                 </Router>
-            ) : showSignUp ? (
-                <SignUp onSignUp={handleSignUp} onLoginClick={toggleSignUp} />
             ) : (
-                <Login onLogin={handleLogin} onSignUpClick={toggleSignUp} />
+                <Login onLogin={handleLogin} />
             )}
         </div>
     );

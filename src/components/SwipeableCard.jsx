@@ -18,6 +18,13 @@ function SwipeableCard({ card, cardStatus, onCardClick, onSwipeLeft, forceRerend
         },
     });
 
+    const totalAmount = card.items.reduce((total, item) => { 
+         return total + item.components.reduce((itemTotal, component) => {
+         return itemTotal + parseFloat(component.price.slice(1)); 
+
+        }, 0); 
+    }, 0).toFixed(2);
+
     return (
         <div
             {...(!isCompleted ? handlers : {})} 
@@ -40,10 +47,10 @@ function SwipeableCard({ card, cardStatus, onCardClick, onSwipeLeft, forceRerend
                         <div className="flex justify-between items-start w-full">
                             <div className="flex flex-col items-start">
                                 <p className="text-sm">Queue Number: {card.queueNumber}</p>
-                                <p className="text-sm">Orders Made: {card.numberOfOrders}</p>
+                                <p className="text-sm">Baskets Ordered: {card.items.length}</p>
                             </div>
                             <div className="text-right flex flex-col">
-                                <p className="font-bold text-lg">{card.amount}</p>
+                                <p className="font-bold text-lg">{totalAmount}</p>
                                 <p className={`text-sm mt-2 ${isCompleted ? 'text-green-600' : 'text-blue-600'}`}>
                                     {cardStatus[card.orderId] || 'Pending'}
                                 </p>

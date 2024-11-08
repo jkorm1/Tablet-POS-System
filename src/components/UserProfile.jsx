@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const UserProfile = ({ onLogout }) => {
+const UserProfile = ({ onLogout, calculateSwipesPerHour }) => {
   const user = {
     name: "Solomon Attipoe",
     role: "Salesperson",
@@ -36,6 +36,7 @@ const UserProfile = ({ onLogout }) => {
       <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Sales Performance</h3>
       <p>Total Sales: <span className="font-medium text-gray-900 dark:text-white">${user.totalSales}</span></p>
       <p>Average Sale: <span className="font-medium text-gray-900 dark:text-white">${user.averageSale}</span></p>
+      <p className='text-blue-500'><em>Swipes/hour: <span className="font-medium">{calculateSwipesPerHour()}</span></em></p>
       
       <hr className="my-4 border-gray-200 dark:border-gray-700" />
 

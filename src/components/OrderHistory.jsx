@@ -15,10 +15,18 @@ const OrderHistory = ({ cardStatus }) => {
 
     const completedOrders = cards.filter(card => cardStatus[card.orderId] === 'Completed');
     completedOrders.forEach(card => {
-      const cardAmount = parseFloat(card.amount.replace('$', '')) || 0; // Remove dollar sign and parse as number
-      amount += cardAmount;
-      orders += card.numberOfOrders || 0; // Sum 'numberOfOrders' values
-      uniqueIds.add(card.orderId); // Track unique order IDs
+      const cardAmount = card.items.reduce((total, item) => { 
+        return total + item.components.reduce((itemTotal, component) => {
+          return itemTotal + parseFloat(component.price.slice(1)); 
+        }, 0); 
+      }, 0).toFixed(2);
+
+      amount += parseFloat(cardAmount); 
+      orders += card.items.length || 0; 
+      uniqueIds.add(card.orderId); 
+
+      card.numberOfOrders = card.items.length; 
+      card.amount = `$${cardAmount}`; 
     });
 
     setTotalAmount(amount);
@@ -26,7 +34,7 @@ const OrderHistory = ({ cardStatus }) => {
     setTotalCustomers(uniqueIds.size);
     setFilteredCards(completedOrders);
   }, [cardStatus]);
- 
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -70,7 +78,7 @@ const OrderHistory = ({ cardStatus }) => {
             <div className="grid grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
               <div>
                 <p><span className="font-semibold">Number of Orders:</span> {card.numberOfOrders}</p>
-                <p><span className="font-semibold">Amount:</span> {card.amount}</p>
+                <p><span className="font-semibold">Amount:</span> {card.amount}</p> 
               </div>
               <div>
                 <p><span className="font-semibold">Queue Number:</span> {card.queueNumber}</p>

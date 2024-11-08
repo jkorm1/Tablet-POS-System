@@ -4,12 +4,8 @@ import { Smile } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 import '../styles/OrderDetailSheet.css';
 
-const OrderDetailSheet = ({ order, close }) => {
+const OrderDetailSheet = ({ order, close, totalItems }) => {
     if (!order) return null;
-
-    const totalItems = order.items.reduce((total, item) => {
-        return total + item.components.length;
-    }, 0);
 
     const totalAmount = order.items.reduce((total, item) => {
         return total + item.components.reduce((itemTotal, component) => {
@@ -25,7 +21,7 @@ const OrderDetailSheet = ({ order, close }) => {
             <button onClick={close} className="text-red-500 mb-4 text-lg font-semibold hover:underline">Close</button>
             <div className="mb-4 bg-gray-100 p-4 rounded-lg shadow-sm">
                 <h2 className="text-xl font-bold text-gray-800 mb-1">Order #{order.orderId}</h2>
-                <p className="text-gray-600">Number of Orders: <span className="font-semibold">{order.numberOfOrders}</span></p>
+                <p className="text-gray-600">Number Of Baskets: <span className="font-semibold">{totalItems}</span></p>
             </div>
             <div className="mt-4">
                 {order.items.map((item, index) => {
@@ -69,7 +65,7 @@ const OrderDetailSheet = ({ order, close }) => {
             </div>
             <div className="mt-6 p-4 bg-green-50 border border-green-300 rounded-lg shadow-md">
                 <p className="font-bold text-lg text-green-700">Summary:</p>
-                <p className="text-gray-700">Total Items: {totalItems}</p>
+                <p className="text-gray-700">Baskets: {totalItems}</p>
                 <p className="text-gray-700">Total Amount: ${totalAmount}</p>
                 <p className="text-gray-700">Tax: ${tax}</p>
                 <p className="font-bold text-lg text-green-800">Total to Pay: ${totalToPay}</p>

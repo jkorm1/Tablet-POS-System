@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Login({ onLogin, onSignUpClick }) {
+function Login({ onLogin }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -48,10 +48,6 @@ function Login({ onLogin, onSignUpClick }) {
                 >
                     Login
                 </button>
-                <p className="text-center text-white text-sm mt-4">
-                    Don't have an account? 
-                    <a href="#" className="text-white hover:underline font-semibold" onClick={onSignUpClick}> Sign Up</a> {/* Changed text color to white */}
-                </p>
             </form>
         </div>
     );

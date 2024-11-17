@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
   return (
     <div className="fixed top-0 left-0 h-full w-20 bg-gray-800 text-white shadow-lg p-2 flex flex-col items-center space-y-2">
-      <ul className="space-y-6 mt-2">
+      <ul className="space-y-4 mt-2">
         <li className="flex flex-col items-center space-y-1 transform transition-transform duration-200 hover:scale-110 p-1">
           <Link to="/profile" className="flex flex-col items-center space-y-1">
             <Avatar className="w-8 h-8">

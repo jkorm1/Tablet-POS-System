@@ -1,14 +1,1 @@
-/* Optional: Additional CSS animations if needed */
-@keyframes bounce {
-    0%, 100% {
-      transform: translateX(0);
-    }
-    50% {
-      transform: translateX(10px);
-    }
-  }
-  
-  .animate-bounce {
-    animation: bounce 3s infinite;
-  }
-  
+

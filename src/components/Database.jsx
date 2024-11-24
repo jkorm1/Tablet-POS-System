@@ -19,8 +19,18 @@ export const DataProvider = ({ children }) => {
             });
     }, []);
 
+    const updateCardStatus = async (cardId, newStatus) => {
+        try {
+            await axios.put(`http://127.0.0.1:5000/cards/${cardId}/status`, {
+                status: newStatus
+            });
+        } catch (error) {
+            console.error('Error updating card status:', error);
+        }
+    };
+
     return (
-        <Database.Provider value={{ cards, loading }}>
+        <Database.Provider value={{ cards, loading, updateCardStatus }}>
             {children}
         </Database.Provider>
     );

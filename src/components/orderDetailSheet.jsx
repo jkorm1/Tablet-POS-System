@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Smile } from 'lucide-react';
+import { Smile, Clock } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 
 const OrderDetailSheet = ({ order, close, totalItems }) => {
@@ -19,7 +19,13 @@ const OrderDetailSheet = ({ order, close, totalItems }) => {
         <div className="fixed right-0 top-0 w-1/4 h-full bg-white shadow-md p-3 z-20 overflow-y-auto">
             <button onClick={close} className="text-red-500 mb-1 text-xs font-medium hover:underline">Close</button>
             <div className="mb-2 bg-gray-100 p-2 rounded-md shadow">
-                <h2 className="text-xs font-semibold text-gray-800">Order #{order.user_id}</h2>
+                <div className="flex justify-between items-center">
+                    <h2 className="text-xs font-semibold text-gray-800">Order #{order.user_id}</h2>
+                    <div className="flex items-center">
+                        <Clock className="w-3 h-3 mr-1 text-blue-500" />
+                        <span className="text-xs text-blue-500">Processing</span>
+                    </div>
+                </div>
                 <p className="text-xs text-gray-600">Containers: <span className="font-medium">{totalItems}</span></p>
             </div>
             <div className="mt-2 space-y-2">
@@ -53,7 +59,7 @@ const OrderDetailSheet = ({ order, close, totalItems }) => {
                                 </div>
                                 {container.message && (
                                     <div className="text-green-800 animate-slide-left-right flex items-center text-[9.5px]">
-                                        <Smile className="mr-1 text-green-600" size={10} /> { container.message}
+                                        <Smile className="mr-1 text-green-600" size={10} /> {container.message}
                                     </div>
                                 )}
                             </CardContent>

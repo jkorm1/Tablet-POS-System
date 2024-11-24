@@ -2,14 +2,16 @@ import React, { useContext } from 'react';
 import Database from './database';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuth } from '../context/AuthContext';
 
-const UserProfile = ({ onLogout, calculateSwipesPerHour, cardStatus }) => {
+const UserProfile = ({ calculateSwipesPerHour, cardStatus }) => {
     const { cards, loading } = useContext(Database);
-    const user = {
-        name: "Solomon Attipoe",
-        role: "Salesperson",
-        email: "solomonattipoemensah@gmail.com",
-        phone: "+233543316245",
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
     };
 
     const completedCards = cards.filter(card => cardStatus[card.user_id] === 'Completed');
@@ -24,12 +26,6 @@ const UserProfile = ({ onLogout, calculateSwipesPerHour, cardStatus }) => {
     const totalOrders = completedCards.reduce((sum, card) => sum + Object.keys(card.containers).length, 0);
     const averageSale = (totalOrders > 0 ? (totalSales / totalOrders).toFixed(2) : 0);
 
-    const navigate = useNavigate();
-    const handleLogout = () => {
-        onLogout();
-        navigate('/login');
-    };
-
     return (
         <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-all duration-300 ease-in-out">
             <div className="flex flex-col items-center mb-4 space-y-2">
@@ -37,10 +33,10 @@ const UserProfile = ({ onLogout, calculateSwipesPerHour, cardStatus }) => {
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>ATI</AvatarFallback>
                 </Avatar>
-                <h2 className="text-3xl font-semibold text-gray-900 dark:text-white">{user.name}</h2>
-                <p className="text-gray-500">{user.role}</p>
-                <p className="text-gray-700 dark:text-gray-300">{user.email}</p>
-                <p className="text-gray-700 dark:text-gray-300">{user.phone}</p>
+                <h2 className="text-3xl font-semibold text-gray-900 dark:text-white">{user?.username || 'User'}</h2>
+                <p className="text-gray-500">{user?.role || 'User'}</p>
+                <p className="text-gray-700 dark:text-gray-300">{user?.email}</p>
+                <p className="text-gray-700 dark:text-gray-300">{user?.phone}</p>
             </div>
 
             <hr className="my-4 border-gray-200 dark:border-gray-700" />

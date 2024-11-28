@@ -119,89 +119,89 @@ function App() {
 
     return (
         <AuthProvider>
-            <DataProvider>
-                <Router>
-                    <div className="bg-gray-200 h-screen flex overflow-hidden">
-                        <Routes>
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/signup" element={<SignUp />} />
-                            <Route path="/*" element={
-                                <ProtectedRoute>
-                                    <>
-                                        <Sidebar />
-                                        <div className="ml-[80px] p-4 w-full flex-grow overflow-auto">
-                                            <Routes>
-                                                <Route path="/" element={
-                                                    <div className="space-y-4">
-                                                        <div className="flex space-x-4 mb-4">
-                                                            <button
-                                                                className={`bg-gray-600 hover:bg-gray-700 text-white text-sm px-4 py-2 rounded ${
-                                                                    showingStatus === 'onProcessOrPending' ? 'bg-blue-600' : ''
-                                                                }`}
-                                                                onClick={() => setShowingStatus('onProcessOrPending')}
-                                                            >
-                                                                Active Orders
-                                                            </button>
-                                                            <button
-                                                                className={`bg-gray-600 hover:bg-gray-700 text-white text-sm px-4 py-2 rounded ${
-                                                                    showingStatus === 'completed' ? 'bg-blue-600' : ''
-                                                                }`}
-                                                                onClick={() => setShowingStatus('completed')}
-                                                            >
-                                                                Completed
-                                                            </button>
+                <DataProvider>
+                    <Router>
+                        <div className="bg-gray-200 h-screen flex overflow-hidden">
+                            <Routes>
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/signup" element={<SignUp />} />
+                                <Route path="/*" element={
+                                    <ProtectedRoute>
+                                        <>
+                                            <Sidebar />
+                                            <div className="ml-[80px] p-4 w-full flex-grow overflow-auto">
+                                                <Routes>
+                                                    <Route path="/" element={
+                                                        <div className="space-y-4">
+                                                            <div className="flex space-x-4 mb-4">
+                                                                <button
+                                                                    className={`bg-gray-600 hover:bg-gray-700 text-white text-sm px-4 py-2 rounded ${
+                                                                        showingStatus === 'onProcessOrPending' ? 'bg-blue-600' : ''
+                                                                    }`}
+                                                                    onClick={() => setShowingStatus('onProcessOrPending')}
+                                                                >
+                                                                    Active Orders
+                                                                </button>
+                                                                <button
+                                                                    className={`bg-gray-600 hover:bg-gray-700 text-white text-sm px-4 py-2 rounded ${
+                                                                        showingStatus === 'completed' ? 'bg-blue-600' : ''
+                                                                    }`}
+                                                                    onClick={() => setShowingStatus('completed')}
+                                                                >
+                                                                    Completed
+                                                                </button>
+                                                            </div>
+                                                            <div className="flex flex-col md:w-[540px] space-y-3">
+                                                                {loading ? (
+                                                                    Array.from({ length: 3 }).map((_, index) => (
+                                                                        <SkeletonCard key={index} />
+                                                                    ))
+                                                                ) : (
+                                                                    filteredCards.map((card) => (
+                                                                        <SwipeableCard
+                                                                            key={card.user_id}
+                                                                            card={card}
+                                                                            cardStatus={cardStatus}
+                                                                            onCardClick={handleCardClick}
+                                                                            onSwipeRight={handleSwipeRight}
+                                                                            forceRerender={() => setReRender(prev => !prev)}
+                                                                        />
+                                                                    ))
+                                                                )}
+                                                            </div>
+                                                            <OrderDetailSheet
+                                                                order={selectedOrder}
+                                                                totalItems={selectedOrder ? Object.keys(selectedOrder.containers).length : 0}
+                                                                close={closeOrderDetail}
+                                                                totalAmount={totalAmount}
+                                                                tax={tax}
+                                                                totalToPay={totalToPay}
+                                                            />
                                                         </div>
-                                                        <div className="flex flex-col md:w-[540px] space-y-3">
-                                                            {loading ? (
-                                                                Array.from({ length: 3 }).map((_, index) => (
-                                                                    <SkeletonCard key={index} />
-                                                                ))
-                                                            ) : (
-                                                                filteredCards.map((card) => (
-                                                                    <SwipeableCard
-                                                                        key={card.user_id}
-                                                                        card={card}
-                                                                        cardStatus={cardStatus}
-                                                                        onCardClick={handleCardClick}
-                                                                        onSwipeRight={handleSwipeRight}
-                                                                        forceRerender={() => setReRender(prev => !prev)}
-                                                                    />
-                                                                ))
-                                                            )}
-                                                        </div>
-                                                        <OrderDetailSheet
-                                                            order={selectedOrder}
-                                                            totalItems={selectedOrder ? Object.keys(selectedOrder.containers).length : 0}
-                                                            close={closeOrderDetail}
-                                                            totalAmount={totalAmount}
-                                                            tax={tax}
-                                                            totalToPay={totalToPay}
+                                                    } />
+                                                    <Route path="/profile" element={
+                                                        <UserProfile 
+                                                            calculateSwipesPerHour={calculateSwipesPerHour}
+                                                            cardStatus={cardStatus}
                                                         />
-                                                    </div>
-                                                } />
-                                                <Route path="/profile" element={
-                                                    <UserProfile 
-                                                        calculateSwipesPerHour={calculateSwipesPerHour}
-                                                        cardStatus={cardStatus}
-                                                    />
-                                                } />
-                                                <Route path="/dashboard" element={<Dashboard />} />
-                                                <Route path="/order-history" element={
-                                                    <OrderHistory cardStatus={cardStatus} />
-                                                } />
-                                                <Route path="/notifications" element={<Notifications />} />
-                                                <Route path="/reports" element={<Reports />} />
-                                                <Route path="/settings" element={<Settings />} />
-                                                <Route path="/user-management" element={<UserManagement />} />
-                                            </Routes>
-                                        </div>
-                                    </>
-                                </ProtectedRoute>
-                            } />
-                        </Routes>
-                    </div>
-                </Router>
-            </DataProvider>
+                                                    } />
+                                                    <Route path="/dashboard" element={<Dashboard />} />
+                                                    <Route path="/order-history" element={
+                                                        <OrderHistory cardStatus={cardStatus} />
+                                                    } />
+                                                    <Route path="/notifications" element={<Notifications />} />
+                                                    <Route path="/reports" element={<Reports />} />
+                                                    <Route path="/settings" element={<Settings />} />
+                                                    <Route path="/user-management" element={<UserManagement />} />
+                                                </Routes>
+                                            </div>
+                                        </>
+                                    </ProtectedRoute>
+                                } />
+                            </Routes>
+                        </div>
+                    </Router>
+                </DataProvider>
         </AuthProvider>
     );
 }

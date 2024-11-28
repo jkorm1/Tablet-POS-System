@@ -8,7 +8,7 @@ export const DataProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:5000/cards')
+        axios.get('http://127.0.0.1:5000/api/orders')
             .then(response => {
                 setCards(response.data);
                 setLoading(false);
@@ -21,14 +21,14 @@ export const DataProvider = ({ children }) => {
 
     const updateCardStatus = async (cardId, newStatus) => {
         try {
-            await axios.put(`http://127.0.0.1:5000/cards/${cardId}/status`, {
+            await axios.put(`http://127.0.0.1:5000/api/orders/${cardId}/status`, {
                 status: newStatus
             });
         } catch (error) {
             console.error('Error updating card status:', error);
         }
     };
-
+    
     return (
         <Database.Provider value={{ cards, loading, updateCardStatus }}>
             {children}

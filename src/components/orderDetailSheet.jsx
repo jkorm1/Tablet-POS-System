@@ -43,7 +43,7 @@ const OrderDetailSheet = ({ order, close, totalItems }) => {
                             <CardContent className="space-y-1">
                                 {container.FoodItems.map((item, itemIndex) => (
                                     <div key={itemIndex} className="flex justify-between text-xs">
-                                        <span className="font-medium text-gray-800">{item.Food}</span>
+                                        <span className="font-medium text-gray-800">{item.food_name}</span>
                                         <span className="font-semibold text-gray-900">
                                             ${item.Price}
                                             <Badge className="ml-1 bg-red-500 text-white text-[7px] rounded py-0.5 px-2">Refund</Badge>

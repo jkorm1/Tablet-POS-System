@@ -25,7 +25,7 @@ const MenuManagement = () => {
   const fetchMenuItems = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('http://localhost:5000/api/menu-items');
+      const response = await fetch('http://localhost:5000/api/menu-items?is_ordered=false');
       if (!response.ok) {
         throw new Error('Failed to fetch menu items');
       }
@@ -44,7 +44,7 @@ const MenuManagement = () => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await fetch('http://localhost:5000/api/menu-items', {
+      const response = await fetch('http://localhost:5000/api/menu-items?is_ordered=false', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -124,18 +124,19 @@ const MenuManagement = () => {
               />
             </div>
             
-            <div className="space-y-2">
+            <div className="space-y-2 pl-3">
               <Label htmlFor="price">Price (₵)</Label>
               <Input
                 id="price"
                 type="number"
-                step="0.01"
+                step="1"
                 min="0"
                 value={menuItem.price}
                 onChange={handleInputChange}
                 placeholder="Enter price"
                 required
                 disabled={isLoading}
+                
               />
             </div>
 

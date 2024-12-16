@@ -19,10 +19,14 @@ const MenuManagement = () => {
 
     const fetchMenuItems = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:5000/api/menu-items');
-            setMenuItems(response.data);
+            const response = await fetch('http://localhost:5000/api/menu-items?is_ordered=false');
+            if (!response.ok) {
+                throw new Error('Failed to fetch menu items');
+            }
+            const data = await response.json();
+            setMenuItems(data);
         } catch (error) {
-            setError('Error fetching menu items');
+            console.error('Error fetching menu items:', error);
         }
     };
 
@@ -37,7 +41,10 @@ const MenuManagement = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://127.0.0.1:5000/api/menu-items', newItem, {
+            await axios.post('http://127.0.0.1:5000/api/menu-items?is_ordered=false', {
+                ...newItem,
+            
+            }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

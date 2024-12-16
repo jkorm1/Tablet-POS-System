@@ -58,10 +58,10 @@ function Login() {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
-                        className={`${formErrors.username ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`${formErrors.username ? 'border-red-500' : 'border-gray-300'}, rounded-md pl-2`}
                     />
                     {formErrors.username && (
-                        <p className="text-red-500 text-sm mt-1">{formErrors.username}</p>
+                        <p className="text-red-5001 text-sm mt-1">{formErrors.username}</p>
                     )}
                 </div>
                 <div className="mb-4">
@@ -72,7 +72,7 @@ function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                          autoComplete="new-password"
-                        className={`${formErrors.password ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`${formErrors.password ? 'border-red-500' : 'border-gray-300'}, rounded-md pl-2`}
                     />
                     {formErrors.password && (
                         <p className="text-red-500 text-sm mt-1">{formErrors.password}</p>

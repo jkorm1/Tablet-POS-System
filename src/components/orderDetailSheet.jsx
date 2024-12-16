@@ -16,7 +16,7 @@ const OrderDetailSheet = ({ order, close, totalItems }) => {
     const totalToPay = (parseFloat(totalAmount) + parseFloat(tax)).toFixed(2);
 
     return (
-        <div className="fixed right-0 top-0 w-1/4 h-full bg-white shadow-md p-3 z-20 overflow-y-auto">
+        <div className="fixed right-0 top-0 w-[27%] h-full bg-white shadow-md p-3 z-20 overflow-y-auto">
             <button onClick={close} className="text-red-500 mb-1 text-xs font-medium hover:underline">Close</button>
             <div className="mb-2 bg-gray-100 p-2 rounded-md shadow">
                 <div className="flex justify-between items-center">

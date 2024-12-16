@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Check } from 'lucide-react';
+
 function SwipeableCard({ card, cardStatus, onCardClick, onSwipeRight, forceRerender }) {
    const [isVisible, setIsVisible] = useState(true);
    const [position, setPosition] = useState(0);

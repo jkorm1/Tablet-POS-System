@@ -7,7 +7,8 @@ const MenuManagement = () => {
     const [newItem, setNewItem] = useState({
         food_name: '',
         price: '',
-        packaging_type: 'Regular'
+        packaging_type: 'Regular',
+        image_url: ''
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -53,7 +54,8 @@ const MenuManagement = () => {
             setNewItem({
                 food_name: '',
                 price: '',
-                packaging_type: 'Regular'
+                packaging_type: 'Regular',
+                image_url: ''
             });
             fetchMenuItems();
         } catch (error) {
@@ -129,6 +131,20 @@ const MenuManagement = () => {
                             <option value="Large">Large</option>
                             <option value="Small">Small</option>
                         </select>
+                    </div>
+                    
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">
+                            Image URL
+                        </label>
+                        <input
+                            type="text"
+                            name="image_url"
+                            value={newItem.image_url}
+                            onChange={handleInputChange}
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            required
+                        />
                     </div>
                     
                     <button

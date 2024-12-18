@@ -45,7 +45,7 @@ const OrderDetailSheet = ({ order, close, totalItems }) => {
                                     <div key={itemIndex} className="flex justify-between text-xs">
                                         <span className="font-medium text-gray-800">{item.food_name}</span>
                                         <span className="font-semibold text-gray-900">
-                                            ${item.Price}
+                                            ₵{item.Price}
                                             <Badge className="ml-1 bg-red-500 text-white text-[7px] rounded py-0.5 px-2">Refund</Badge>
                                         </span>
                                     </div>
@@ -55,7 +55,7 @@ const OrderDetailSheet = ({ order, close, totalItems }) => {
                                 </p>
                                 <div className="flex justify-between text-xs mt-2 border-t pt-1">
                                     <span className="font-semibold text-gray-800">Total:</span>
-                                    <span className="font-semibold text-gray-900">${totalItemPrice}</span>
+                                    <span className="font-semibold text-gray-900">₵{totalItemPrice}</span>
                                 </div>
                                 {container.message && (
                                     <div className="text-green-800 animate-slide-left-right flex items-center text-[9.5px]">
@@ -70,9 +70,9 @@ const OrderDetailSheet = ({ order, close, totalItems }) => {
             <div className="mt-3 p-2 bg-green-50 border border-green-300 rounded-md">
                 <p className="text-xs font-semibold text-green-700">Summary:</p>
                 <p className="text-xs text-gray-700">Containers: {totalItems}</p>
-                <p className="text-xs text-gray-700">Total: ${totalAmount}</p>
-                <p className="text-xs text-gray-700">Tax: ${tax}</p>
-                <p className="text-sm font-semibold text-green-800">Total to Pay: ${totalToPay}</p>
+                <p className="text-xs text-gray-700">Total: ₵{totalAmount}</p>
+                <p className="text-xs text-gray-700">Tax: ₵{tax}</p>
+                <p className="text-sm font-semibold text-green-800">Total to Pay: ₵{totalToPay}</p>
             </div>
         </div>
     );

@@ -105,7 +105,7 @@ function SwipeableCard({ card, cardStatus, onCardClick, onSwipeRight, forceReren
                                <p className="text-xs">Baskets: {Object.keys(card.containers).length}</p>
                            </div>
                            <div className="text-right flex flex-col">
-                               <p className="font-bold text-md">${totalAmount}</p>
+                               <p className="font-bold text-md">₵{totalAmount}</p>
                                <p className={`text-xs mt-2 ${
                                    isCompleted ? 'text-green-600' : 
                                    isOnProcess ? 'text-blue-600 font-semibold' : 
